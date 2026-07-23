@@ -695,22 +695,6 @@
   ],
   "variable": [
     {
-      "key": "key",
-      "value": ""
-    },
-    {
-      "key": "Secret",
-      "value": ""
-    },
-    {
-      "key": "token",
-      "value": ""
-    },
-    {
-      "key": "url",
-      "value": ""
-    },
-    {
       "key": "boardid",
       "value": ""
     },
