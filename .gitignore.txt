@@ -1,0 +1,19 @@
+# Newman Reports
+Reports/
+
+# HTML Reports
+*.html
+
+# Node Modules
+node_modules/
+
+# Log files
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/

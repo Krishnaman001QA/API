@@ -1,0 +1,734 @@
+{
+  "info": {
+    "_postman_id": "7e30af8f-ca20-49fe-a716-7b7ce5fe1297",
+    "name": "Trello hindi",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "19475247"
+  },
+  "item": [
+    {
+      "name": "Board API",
+      "item": [
+        {
+          "name": "Get Specific Board Data",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "console.log(\"starting\");\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const response = pm.response.json();",
+                  "const targetName = pm.collectionVariables.get(\"targetBoardName\");",
+                  "let found = false;",
+                  "",
+                  "for (const item of response) {",
+                  "    if (item.name === targetName) {",
+                  "        pm.collectionVariables.set(\"boardid\", item.id);",
+                  "        console.log(targetName + \" found! boardid stored:\", item.id);",
+                  "        found = true;",
+                  "        break;",
+                  "    }",
+                  "}",
+                  "",
+                  "if (!found) {",
+                  "    console.log(targetName + \" not found\");",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/1/members/me/boards?fields=name,url&key={{key}}&token={{token}}",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "1",
+                "members",
+                "me",
+                "boards"
+              ],
+              "query": [
+                {
+                  "key": "fields",
+                  "value": "name,url"
+                },
+                {
+                  "key": "key",
+                  "value": "{{key}}"
+                },
+                {
+                  "key": "token",
+                  "value": "{{token}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Boards Details",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/1/members/me/boards?key={{key}}&token={{token}}",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "1",
+                "members",
+                "me",
+                "boards"
+              ],
+              "query": [
+                {
+                  "key": "key",
+                  "value": "{{key}}"
+                },
+                {
+                  "key": "token",
+                  "value": "{{token}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Single Board",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/1/boards/{{boardid}}?key={{key}}&token={{token}}",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "1",
+                "boards",
+                "{{boardid}}"
+              ],
+              "query": [
+                {
+                  "key": "key",
+                  "value": "{{key}}"
+                },
+                {
+                  "key": "token",
+                  "value": "{{token}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Card",
+      "item": [
+        {
+          "name": "Create card",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "var jsonData = pm.response.json();",
+                  "pm.collectionVariables.set(\"cardid\", jsonData.id);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{url}}/1/cards?idList=6a41f05252b2d3d36423f86e&key={{key}}&token={{token}}&name=Sanju 2x Checklist card",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "1",
+                "cards"
+              ],
+              "query": [
+                {
+                  "key": "idList",
+                  "value": "6a41f05252b2d3d36423f86e"
+                },
+                {
+                  "key": "key",
+                  "value": "{{key}}"
+                },
+                {
+                  "key": "token",
+                  "value": "{{token}}"
+                },
+                {
+                  "key": "name",
+                  "value": "Sanju 2x Checklist card"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get card",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{url}}/1/cards/{{cardid}}?key={{key}}&token={{token}}",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "1",
+                "cards",
+                "{{cardid}}"
+              ],
+              "query": [
+                {
+                  "key": "key",
+                  "value": "{{key}}"
+                },
+                {
+                  "key": "token",
+                  "value": "{{token}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update card",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"idList\": \"6a41f05252b2d3d36423f86e\",\r\n    \"name\": \"Sanju Updated Card\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}/1/cards/{{cardid}}?key={{key}}&token={{token}}",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "1",
+                "cards",
+                "{{cardid}}"
+              ],
+              "query": [
+                {
+                  "key": "key",
+                  "value": "{{key}}"
+                },
+                {
+                  "key": "token",
+                  "value": "{{token}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Card",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/1/cards/{{cardid}}?key={{key}}&token={{token}}",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "1",
+                "cards",
+                "{{cardid}}"
+              ],
+              "query": [
+                {
+                  "key": "key",
+                  "value": "{{key}}"
+                },
+                {
+                  "key": "token",
+                  "value": "{{token}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "CheckList API",
+      "item": [
+        {
+          "name": "Create Card",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "var jsonData = pm.response.json();",
+                  "pm.collectionVariables.set(\"cardid\", jsonData.id);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{url}}/1/cards?idList=6a41f05252b2d3d36423f86e&key={{key}}&token={{token}}&name=Sanju 2x Checklist card",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "1",
+                "cards"
+              ],
+              "query": [
+                {
+                  "key": "idList",
+                  "value": "6a41f05252b2d3d36423f86e"
+                },
+                {
+                  "key": "key",
+                  "value": "{{key}}"
+                },
+                {
+                  "key": "token",
+                  "value": "{{token}}"
+                },
+                {
+                  "key": "name",
+                  "value": "Sanju 2x Checklist card"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Checklist",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "var jsonData = pm.response.json();",
+                  "pm.collectionVariables.set(\"checklistid\", jsonData.id);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"idBoard\": \"6a4148a06ac32ee801b2be63\",\r\n    \"idCard\": \"6a41f8dfc94dda1f48e9f504\",\r\n    \"idChecklistSource\": \"6a41f01e5426131d2eec43bf\",\r\n    \"name\": \"My New Checklist\",\r\n    \"dsc\": \"ac9b7797f3d9c9e456ff9b973f0db268129b7d7b0bd4ce70ab684a0c6a7a6360\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}/1/checklists?idCard=6a41f364740e46ec4009acfe&key={{key}}&token={{token}}",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "1",
+                "checklists"
+              ],
+              "query": [
+                {
+                  "key": "idCard",
+                  "value": "6a41f364740e46ec4009acfe"
+                },
+                {
+                  "key": "key",
+                  "value": "{{key}}"
+                },
+                {
+                  "key": "token",
+                  "value": "{{token}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Checklist",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/1/checklists/{{checklistid}}?key={{key}}&token={{token}}",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "1",
+                "checklists",
+                "{{checklistid}}"
+              ],
+              "query": [
+                {
+                  "key": "key",
+                  "value": "{{key}}"
+                },
+                {
+                  "key": "token",
+                  "value": "{{token}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Comment API",
+      "item": [
+        {
+          "name": "Create Card Copy",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "var jsonData = pm.response.json();",
+                  "pm.collectionVariables.set(\"cardid\", jsonData.id);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{url}}/1/cards?idList=6a41f05252b2d3d36423f86e&key={{key}}&token={{token}}&name=Sanju 2x Checklist card",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "1",
+                "cards"
+              ],
+              "query": [
+                {
+                  "key": "idList",
+                  "value": "6a41f05252b2d3d36423f86e"
+                },
+                {
+                  "key": "key",
+                  "value": "{{key}}"
+                },
+                {
+                  "key": "token",
+                  "value": "{{token}}"
+                },
+                {
+                  "key": "name",
+                  "value": "Sanju 2x Checklist card"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Add new Comment in card",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "var jsonData = pm.response.json();",
+                  "pm.collectionVariables.set(\"commentID\", jsonData.id);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{url}}/1/cards/{{cardid}}/actions/comments?text=First Comment&key={{key}}&token={{token}}",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "1",
+                "cards",
+                "{{cardid}}",
+                "actions",
+                "comments"
+              ],
+              "query": [
+                {
+                  "key": "text",
+                  "value": "First Comment"
+                },
+                {
+                  "key": "key",
+                  "value": "{{key}}"
+                },
+                {
+                  "key": "token",
+                  "value": "{{token}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Comment on card",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/1/actions/{{commentID}}?key={{key}}&token={{token}}",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "1",
+                "actions",
+                "{{commentID}}"
+              ],
+              "query": [
+                {
+                  "key": "key",
+                  "value": "{{key}}"
+                },
+                {
+                  "key": "token",
+                  "value": "{{token}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "key",
+      "value": ""
+    },
+    {
+      "key": "Secret",
+      "value": ""
+    },
+    {
+      "key": "token",
+      "value": ""
+    },
+    {
+      "key": "url",
+      "value": ""
+    },
+    {
+      "key": "boardid",
+      "value": ""
+    },
+    {
+      "key": "targetBoardName",
+      "value": ""
+    },
+    {
+      "key": "cardid",
+      "value": ""
+    },
+    {
+      "key": "checklistid",
+      "value": ""
+    },
+    {
+      "key": "commentID",
+      "value": ""
+    }
+  ]
+}
